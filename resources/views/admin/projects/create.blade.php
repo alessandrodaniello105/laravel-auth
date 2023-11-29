@@ -4,42 +4,74 @@
 
     <h1>Inserisci un nuovo progetto</h1>
 
-    <form action="#">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">@</span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
+    <form action="{{ route('admin.projects.store') }}" method="POST">
+        @csrf
 
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2">@example.com</span>
-          </div>
+        <div class="container p-3">
 
-          <div class="mb-3">
-            <label for="basic-url" class="form-label">Your vanity URL</label>
-            <div class="input-group">
-              <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-              <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-            </div>
-            <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
-          </div>
+            {{-- TITOLO --}}
+        <div class="mb-3">
+            <label for="title" class="form-label">Inserisci il titolo del progetto</label>
+            <input type="text" class="form-control" placeholder="Progetto bello" name="title" value="{{old('title')}}">
+        </div>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text">$</span>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-            <span class="input-group-text">.00</span>
-          </div>
+            {{-- DESCRIZIONE --}}
+        <div class="form-floating mb-3">
+            <textarea class="form-control" id="description" name="description" style="height: 100px" placeholder="Descrizione del progetto">{{old('description')}}</textarea>
+            <label for="description">Descrizione del progetto</label>
+        </div>
 
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-            <span class="input-group-text">@</span>
-            <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-          </div>
+            {{-- TECNOLOGIE --}}
+        <div class="mb-3">
+        <select class="form-select" name="technologies" value="{{old('technologies')}}">
+            <option selected>Scegli la tecnologia principale</option>
+            @foreach ($technologies as $tech)
 
-          <div class="input-group">
-            <span class="input-group-text">With textarea</span>
-            <textarea class="form-control" aria-label="With textarea"></textarea>
-          </div>
+            <option value="{{$tech->name}}">{{$tech->name}}</option>
+            @endforeach
+            </select>
+        </div>
+
+            {{-- TECNOLOGIE  se fosse un array--}}
+        {{--
+        <div class="form-check mb-3">
+
+            @foreach ($technologies as $tech)
+
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Default radio
+            </label>
+            @endforeach
+
+        </div> --}}
+
+
+            {{-- TIPO --}}
+        <div class="mb-3">
+            <select class="form-select" name="type" value="{{old('type')}}">
+                <option selected>Scegli la privacy</option>
+                @foreach ($types as $type)
+
+                <option value="{{$type->name}}">{{$type->name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+            {{-- LINK --}}
+        <div class="mb-3">
+            <label for="link" class="form-label">Inserisci il link al progetto</label>
+            <input type="text" class="form-control" placeholder="https://..." name="link" value="{{old('link')}}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Invia</button>
+        <button type="reset" class="btn btn-danger">Pulisci i campi</button>
+        <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}">Annulla</a>
+
     </form>
 
+@endsection
+
+@section('title')
+Crea un progetto
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -15,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('id', 'desc')->get();
 
         return view("admin.projects.index", compact("projects"));
     }
@@ -27,7 +29,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view("admin.projects.create");
+        $technologies = Technology::all();
+        $types = Type::all();
+        return view("admin.projects.create", compact("technologies", "types"));
     }
 
     /**
@@ -38,7 +42,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $form_data = $request->all();
+        $form_data['slug'] = Project::generateSlug($form_data['title']);
+
+        $new_project = new Project();
+        $new_project->slug = $form_data['slug'];
+        $new_project->fill($form_data);
+        $new_project->save();
+
+        return redirect()->route('admin.projects.show', $new_project->slug)->with('success', 'Nuovo progetto inserito con successo!');
     }
 
     /**
@@ -47,9 +59,10 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $new_project = Project::where('slug', $slug)->first();
+        return view('admin.projects.show', compact('new_project'));
     }
 
     /**

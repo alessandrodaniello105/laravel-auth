@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Lista Progetti</h1>
+    <h1>Lista Progetti | <a href="{{route('admin.projects.create')}}"><i class="fa-solid fa-square-plus"></i></a></h1>
 
     <ul>
         @foreach ($projects as $project)

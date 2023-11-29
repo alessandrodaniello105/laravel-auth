@@ -50,7 +50,7 @@ class ProjectController extends Controller
         $new_project->fill($form_data);
         $new_project->save();
 
-        return redirect()->route('admin.projects.show', $new_project->slug)->with('success', 'Nuovo progetto inserito con successo!');
+        return redirect()->route('admin.projects.show', $new_project)->with('success', 'Nuovo progetto inserito con successo!');
     }
 
     /**
@@ -59,10 +59,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Project $project)
     {
-        $new_project = Project::where('slug', $slug)->first();
-        return view('admin.projects.show', compact('new_project'));
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -94,8 +93,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('admin.projects.index')->with('success', "Hai correttamente cancellato ''$project->title''.");
     }
 }

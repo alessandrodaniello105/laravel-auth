@@ -7,6 +7,7 @@ header {
 .main-wrapper {
     height: calc(100vh - 60px);
 }
+
 aside {
     width: 250px;
     height: 100%;
@@ -19,5 +20,12 @@ aside {
                 text-decoration: underline;
             }
         }
+    }
+}
+
+#projects-list {
+    list-style: none;
+    li {
+        margin: 20px 0;
     }
 }

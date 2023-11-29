@@ -14,3 +14,7 @@
     </ul>
 
 @endsection
+
+@section('title')
+Lista progetti
+@endsection

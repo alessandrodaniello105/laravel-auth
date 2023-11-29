@@ -14,3 +14,8 @@
     </ul>
 
 @endsection
+
+
+@section('title')
+Lista tecnologie
+@endsection

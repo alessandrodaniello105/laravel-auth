@@ -18,3 +18,8 @@
     </ul>
 
 @endsection
+
+
+@section('title')
+Lista tipi
+@endsection

@@ -55,9 +55,9 @@
               id="description"
               name="description"
               style="height: 100px"
-              placeholder="Descrizione del progetto">
-                {{old('description', $project?->description)}}
-            </textarea>
+              placeholder="Descrizione del progetto"
+              >{{old('description', $project?->description)}}</textarea>
+
             <label for="description">Descrizione del progetto</label>
 
             @error('description')
@@ -70,7 +70,8 @@
 
         {{-- IMMAGINE --}}
         <div class="mb-3">
-            <input type="file" class="form-control">
+            <label for="img-input" class="form-label">Carica un'immagine</label>
+            <input id="img-input" type="file" class="form-control">
         </div>
 
 
@@ -164,7 +165,7 @@
 
         <button type="submit" class="btn btn-primary">Invia</button>
         <button type="reset" class="btn btn-danger">Pulisci i campi</button>
--+--
+
         <a class="btn btn-secondary" href="{{ route('admin.projects.index') }}">Annulla</a>
 
     </form>

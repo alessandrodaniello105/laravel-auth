@@ -19,8 +19,10 @@
     <div class="main-wrapper d-flex">
         @include('admin.partials.sidebar')
 
-        <div class="my-3 p-3">
-            @yield('content')
+        <div class="section-container mt-3 pt-3 ps-3">
+            <div class="section">
+                @yield('content')
+            </div>
         </div>
     </div>
 

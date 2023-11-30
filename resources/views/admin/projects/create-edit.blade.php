@@ -54,7 +54,7 @@
             {{-- TIPO --}}
         <div class="mb-3">
             <select class="form-select" name="type" value="{{old('type', $project?->type)}}">
-                <option>Scegli la privacy</option>
+                <option>Scegli il tipo</option>
                 @foreach ($types as $type)
 
                 <option @if ($project?->type === $type->name) selected @endif value="{{$type->name}}">{{$type->name}}</option>

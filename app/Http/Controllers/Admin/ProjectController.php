@@ -31,7 +31,13 @@ class ProjectController extends Controller
     {
         $technologies = Technology::all();
         $types = Type::all();
-        return view("admin.projects.create", compact("technologies", "types"));
+
+        $title = "Inserisci un nuovo progetto";
+        $route = route('admin.projects.store');
+        $method = "POST";
+        $project = null;
+
+        return view("admin.projects.create-edit", compact("technologies", "types", "title", "route", "method", "project"));
     }
 
     /**
@@ -70,9 +76,17 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+
+        $technologies = Technology::all();
+        $types = Type::all();
+
+        $title = "Modifica il progetto ''$project->title''";
+        $route = route('admin.projects.update', $project);
+        $method = "PUT";
+
+        return view('admin.projects.create-edit', compact('technologies', 'types', 'title', 'route', 'method', 'project'));
     }
 
     /**

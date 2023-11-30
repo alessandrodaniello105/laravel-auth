@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-@php
+{{-- @php
     $types = config('types')
-@endphp
+@endphp --}}
 
 
     <h1>Lista Tipi</h1>
@@ -11,7 +11,7 @@
     <ul>
         @foreach ($types as $type)
         <li>
-            {{$type}}
+            {{$type->name}}
         </li>
         @endforeach
 

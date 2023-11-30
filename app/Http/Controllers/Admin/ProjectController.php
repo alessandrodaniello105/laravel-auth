@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use App\Http\Requests\ProjectRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -46,15 +48,13 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
         $form_data = $request->all();
         $form_data['slug'] = Project::generateSlug($form_data['title']);
 
-        $new_project = new Project();
-        $new_project->slug = $form_data['slug'];
-        $new_project->fill($form_data);
-        $new_project->save();
+        $new_project = Project::create($form_data);
+
 
         return redirect()->route('admin.projects.show', $new_project)->with('success', 'Nuovo progetto inserito con successo!');
     }
@@ -96,9 +96,19 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectRequest $request, Project $project)
     {
-        //
+        $form_data = $request->all();
+
+        if ($form_data['title'] !== $project->title) {
+            $form_data['slug'] = Project::generateSlug($form_data['title']);
+        } else {
+            $form_data['slug'] = $project->slug;
+        }
+
+        $project->update($form_data);
+
+        return redirect()->route('admin.projects.show', $project)->with('success', 'Hai modificato correttamente il progetto');
     }
 
     /**

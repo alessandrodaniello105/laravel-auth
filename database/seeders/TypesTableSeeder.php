@@ -17,7 +17,7 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $data = ['private', 'public'];
+        $data = config('types');
         foreach($data as $type) {
             $new_type = new Type;
             $new_type->name = $type;

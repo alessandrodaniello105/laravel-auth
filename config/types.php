@@ -1,6 +1,10 @@
 <?php
 
 return [
-    "public",
-    "private"
+    "Front-End",
+    "Back-End",
+    "Design",
+    "Debugged",
+    "Refactory",
+    "UI/UX"
 ];

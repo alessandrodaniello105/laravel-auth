@@ -2,32 +2,36 @@
 
 @section('content')
 
-    <h1>Inserisci un nuovo progetto</h1>
+    <h1>{{ $title }}</h1>
 
-    <form action="{{ route('admin.projects.store') }}" method="POST">
+    <form action="{{ $route }}" method="POST">
         @csrf
+        @method( $method )
+
 
         <div class="container p-3">
 
             {{-- TITOLO --}}
         <div class="mb-3">
             <label for="title" class="form-label">Inserisci il titolo del progetto</label>
-            <input type="text" class="form-control" placeholder="Progetto bello" name="title" value="{{old('title')}}">
+            <input type="text" class="form-control" placeholder="Progetto bello" name="title" value="{{old('title', $project?->title )}}">
         </div>
 
             {{-- DESCRIZIONE --}}
         <div class="form-floating mb-3">
-            <textarea class="form-control" id="description" name="description" style="height: 100px" placeholder="Descrizione del progetto">{{old('description')}}</textarea>
+            <textarea class="form-control" id="description" name="description" style="height: 100px" placeholder="Descrizione del progetto">{{old('description', $project?->description)}}</textarea>
             <label for="description">Descrizione del progetto</label>
         </div>
 
             {{-- TECNOLOGIE --}}
         <div class="mb-3">
-        <select class="form-select" name="technologies" value="{{old('technologies')}}">
-            <option selected>Scegli la tecnologia principale</option>
+        <select class="form-select" name="technologies" value="{{old('technologies', $project?->technologies)}}">
+            <option>Scegli la tecnologia principale</option>
             @foreach ($technologies as $tech)
 
-            <option value="{{$tech->name}}">{{$tech->name}}</option>
+            <option {{($project?->technologies === $tech->name)? 'selected' : ''}} value="{{$tech->name}}">{{$tech->name}}</option>
+
+            {{-- <option @if ($project?->technologies === $tech->name) selected @endif value="{{$tech->name}}">{{$tech->name}}</option> --}}
             @endforeach
             </select>
         </div>
@@ -49,11 +53,11 @@
 
             {{-- TIPO --}}
         <div class="mb-3">
-            <select class="form-select" name="type" value="{{old('type')}}">
-                <option selected>Scegli la privacy</option>
+            <select class="form-select" name="type" value="{{old('type', $project?->type)}}">
+                <option>Scegli la privacy</option>
                 @foreach ($types as $type)
 
-                <option value="{{$type->name}}">{{$type->name}}</option>
+                <option @if ($project?->type === $type->name) selected @endif value="{{$type->name}}">{{$type->name}}</option>
                 @endforeach
             </select>
         </div>

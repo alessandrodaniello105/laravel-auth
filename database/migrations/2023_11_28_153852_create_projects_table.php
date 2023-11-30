@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug', 76);
             $table->string('description', 255);
             $table->string('technologies', 30);
-            $table->string('type', 7);
+            $table->string('type', 15);
             $table->timestamps();
         });
     }

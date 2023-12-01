@@ -6,9 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
 class Project extends Model
 {
     use HasFactory;
+
+    public function technology() {
+        return $this->belongsTo(Technology::class);
+    }
 
     public static function generateSlug($string) {
         $slug = Str::slug($string, '-');

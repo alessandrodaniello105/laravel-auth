@@ -25,7 +25,6 @@ class ProjectsTableSeeder extends Seeder
             $new_project->title = $faker->text(75);
             $new_project->slug = Str::slug($new_project->title, '-');
             $new_project->description = $faker->paragraph(2);
-            $new_project->technologies = $faker->word();
             $new_project->type = $faker->randomElement(['public','private']);
             $new_project->save();
         }
